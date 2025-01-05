@@ -38,6 +38,6 @@ bin/
 ### VS Code ###
 .vscode/
 .env
-
+src/main/java/com/duriyou/lean/web/HelloController.java
 ### Mac OS ###
 .DS_Store
