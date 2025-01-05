@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: springboot-study
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:${MYSQL:mysql}://${HOST:localhost}:${PORT:3306}/${DATABASE}?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 1000 #최적화 옵션
+        show_sql: true
