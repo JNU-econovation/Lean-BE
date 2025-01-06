@@ -2,6 +2,7 @@ package com.duriyou.lean.service.users;
 
 import com.duriyou.lean.domain.users.Users;
 import com.duriyou.lean.domain.users.UsersRepository;
+import com.duriyou.lean.web.dto.Users.AllUsersResponseDto;
 import com.duriyou.lean.web.dto.Users.UsersResponseDto;
 import com.duriyou.lean.web.dto.Users.UsersSaveRequestDto;
 import com.duriyou.lean.web.dto.Users.UsersUpdateRequestDto;
@@ -9,11 +10,20 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class UsersService {
     private final UsersRepository usersRepository;
 
+    public List<AllUsersResponseDto> findAll() {
+        List<Users> users = usersRepository.findAll();
+        return users.stream()
+                .map(AllUsersResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public Long save(UsersSaveRequestDto requestDto) {
