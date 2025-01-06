@@ -2,9 +2,9 @@ package com.duriyou.lean.service.users;
 
 import com.duriyou.lean.domain.users.Users;
 import com.duriyou.lean.domain.users.UsersRepository;
-import com.duriyou.lean.web.dto.UsersResponseDto;
-import com.duriyou.lean.web.dto.UsersSaveRequestDto;
-import com.duriyou.lean.web.dto.UsersUpdateRequestDto;
+import com.duriyou.lean.web.dto.Users.UsersResponseDto;
+import com.duriyou.lean.web.dto.Users.UsersSaveRequestDto;
+import com.duriyou.lean.web.dto.Users.UsersUpdateRequestDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
