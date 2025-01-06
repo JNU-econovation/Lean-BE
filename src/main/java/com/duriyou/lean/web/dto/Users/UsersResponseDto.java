@@ -1,5 +1,6 @@
 package com.duriyou.lean.web.dto;
 
+import com.duriyou.lean.domain.colleges.Colleges;
 import com.duriyou.lean.domain.users.Users;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
