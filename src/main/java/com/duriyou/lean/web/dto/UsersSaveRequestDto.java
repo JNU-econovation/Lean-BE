@@ -4,10 +4,10 @@ package com.duriyou.lean.web.dto;
 import com.duriyou.lean.domain.users.Users;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class UsersSaveReqeustDto {
     private String studentNumber;
     private String name;
