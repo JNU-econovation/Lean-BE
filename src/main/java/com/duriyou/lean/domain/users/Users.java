@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -35,10 +38,21 @@ public class Users {
     @Column(nullable = false)
     private Boolean isStudentCouncil;
 
-    private String createdAt;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+        if (isStudentCouncil == null) {
+            isStudentCouncil = false;
+        }
+    }
 
     @Builder
-    public Users(String studentNumber, String name, String phoneNumber, Colleges college, String department, Boolean isStudentCouncil, String createdAt) {
+    public Users(String studentNumber, String name, String phoneNumber, Colleges college, String department, Boolean isStudentCouncil, LocalDateTime createdAt) {
         this.studentNumber = studentNumber;
         this.name = name;
         this.phoneNumber = phoneNumber;
