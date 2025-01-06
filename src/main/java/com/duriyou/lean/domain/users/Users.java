@@ -1,6 +1,7 @@
 package com.duriyou.lean.domain.users;
 
 
+import com.duriyou.lean.domain.colleges.Colleges;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
