@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UsersSaveReqeustDto {
+public class UsersSaveRequestDto {
     private String studentNumber;
     private String name;
     private String phoneNumber;
