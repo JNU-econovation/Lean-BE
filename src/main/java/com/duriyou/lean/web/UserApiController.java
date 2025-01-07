@@ -40,4 +40,9 @@ public class UserApiController {
         usersService.delete(id);
         return id;
     }
+
+    @PutMapping("api/v1/users/is-student-council/{id}")
+    public Boolean update(@PathVariable Long id) {
+        return usersService.updateIsStudentCouncil(id);
+    }
 }

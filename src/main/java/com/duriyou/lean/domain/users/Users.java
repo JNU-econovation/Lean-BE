@@ -69,4 +69,8 @@ public class Users {
         this.college = college;
         this.department = department;
     }
+
+    public void updateIdStudentCouncil(Boolean isStudentCouncil) {
+        this.isStudentCouncil = isStudentCouncil;
+    }
 }
