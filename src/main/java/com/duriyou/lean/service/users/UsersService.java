@@ -42,6 +42,14 @@ public class UsersService {
         return id;
     }
 
+    @Transactional
+    public Boolean updateIsStudentCouncil(Long id) {
+        Users user = usersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. id=" + id));
+        Boolean currentStatus = user.getIsStudentCouncil();
+        user.updateIdStudentCouncil(!currentStatus);
+        return user.getIsStudentCouncil();
+    }
+
     public UsersResponseDto findById (Long id) {
         Users entity = usersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. id=" + id));
         return new UsersResponseDto(entity);
