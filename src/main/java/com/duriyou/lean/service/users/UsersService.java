@@ -10,6 +10,8 @@ import com.duriyou.lean.web.dto.Users.UsersSaveRequestDto;
 import com.duriyou.lean.web.dto.Users.UsersUpdateRequestDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +33,9 @@ public class UsersService {
     @Transactional
     public Long save(UsersSaveRequestDto requestDto) {
         Colleges colleges = findCollegeById(requestDto.getCollegeId());
-        return usersRepository.save(requestDto.toEntity(colleges)).getId();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+        return usersRepository.save(requestDto.toEntity(colleges, encodedPassword)).getId();
     }
 
     @Transactional
