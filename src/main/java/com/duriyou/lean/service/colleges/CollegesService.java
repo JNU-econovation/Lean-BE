@@ -10,15 +10,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class CollegesService {
     private final CollegesRepository collegesRepository;
 
-    public AllCollegesResponseDto findAll() {
+    public List<AllCollegesResponseDto> findAll() {
         List<Colleges> colleges = collegesRepository.findAll();
-        return new AllCollegesResponseDto(colleges);
+        return colleges.stream()
+                .map(AllCollegesResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional
