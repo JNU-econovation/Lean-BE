@@ -65,6 +65,13 @@ public class UsersService {
         usersRepository.delete(users);
     }
 
+    @Transactional
+    public boolean signin (String studentNumber, String password) {
+        Users user = usersRepository.findByStudentNumber(studentNumber).orElseThrow();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.matches(password, user.getPassword());
+    }
+
     private Colleges findCollegeById(Long collegeId) {
         if (collegeId == null) {
             return null;
