@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +20,9 @@ public class Users {
 
     @Column(nullable = false)
     private String studentNumber;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String name;
@@ -52,8 +54,9 @@ public class Users {
     }
 
     @Builder
-    public Users(String studentNumber, String name, String phoneNumber, Colleges college, String department, Boolean isStudentCouncil, LocalDateTime createdAt) {
+    public Users(String studentNumber, String password, String name, String phoneNumber, Colleges college, String department, Boolean isStudentCouncil, LocalDateTime createdAt) {
         this.studentNumber = studentNumber;
+        this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.department = department;
