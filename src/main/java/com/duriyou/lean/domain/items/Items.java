@@ -24,7 +24,8 @@ public class Items {
     private String name;
 
     @Builder
-    public Items(String name){
+    public Items(StudentCouncil studentCouncil, String name){
+        this.studentCouncil = studentCouncil;
         this.name = name;
     }
 }

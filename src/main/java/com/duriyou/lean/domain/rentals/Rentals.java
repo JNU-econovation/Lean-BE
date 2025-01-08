@@ -28,7 +28,9 @@ public class Rentals {
     private String status;
 
     @Builder
-    public Rentals(String status){
+    public Rentals(Users users, Items items, String status){
+        this.users = users;
+        this.items = items;
         this.status = status;
     }
 }
