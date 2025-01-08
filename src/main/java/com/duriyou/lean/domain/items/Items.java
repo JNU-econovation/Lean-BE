@@ -2,6 +2,7 @@ package com.duriyou.lean.domain.items;
 
 import com.duriyou.lean.domain.student.council.StudentCouncil;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,9 @@ public class Items {
 
     @Column(nullable = false)
     private String name;
+
+    @Builder
+    public Items(String name){
+        this.name = name;
+    }
 }
