@@ -3,6 +3,7 @@ package com.duriyou.lean.domain.rentals;
 import com.duriyou.lean.domain.items.Items;
 import com.duriyou.lean.domain.users.Users;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,9 @@ public class Rentals {
 
     @Column(nullable = false)
     private String status;
+
+    @Builder
+    public Rentals(String status){
+        this.status = status;
+    }
 }
