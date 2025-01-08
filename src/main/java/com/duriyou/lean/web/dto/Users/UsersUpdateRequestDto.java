@@ -1,6 +1,5 @@
 package com.duriyou.lean.web.dto.Users;
 
-import com.duriyou.lean.domain.colleges.Colleges;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,15 +10,15 @@ public class UsersUpdateRequestDto {
     private String studentNumber;
     private String name;
     private String phoneNumber;
-    private Colleges college;
+    private Long collegeId;
     private String department;
 
     @Builder
-    UsersUpdateRequestDto(String studentNumber, String name, String phoneNumber, Colleges college, String department) {
+    UsersUpdateRequestDto(String studentNumber, String name, String phoneNumber, Long collegeId, String department) {
         this.studentNumber = studentNumber;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.college = college;
+        this.collegeId = collegeId;
         this.department = department;
     }
 }

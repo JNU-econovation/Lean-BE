@@ -1,10 +1,7 @@
 package com.duriyou.lean.web;
 
 import com.duriyou.lean.service.users.UsersService;
-import com.duriyou.lean.web.dto.Users.AllUsersResponseDto;
-import com.duriyou.lean.web.dto.Users.UsersResponseDto;
-import com.duriyou.lean.web.dto.Users.UsersSaveRequestDto;
-import com.duriyou.lean.web.dto.Users.UsersUpdateRequestDto;
+import com.duriyou.lean.web.dto.Users.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +36,20 @@ public class UserApiController {
     public Long delete(@PathVariable Long id) {
         usersService.delete(id);
         return id;
+    }
+
+    @PutMapping("api/v1/users/is-student-council/{id}")
+    public Boolean update(@PathVariable Long id) {
+        return usersService.updateIsStudentCouncil(id);
+    }
+
+    @PostMapping("/api/v1/signin")
+    public String signin(@RequestBody SigninRequestDto requestDto) {
+        boolean loginSuccessful = usersService.signin(requestDto.getStudentNumber(), requestDto.getPassword());
+        if (loginSuccessful) {
+            return "로그인";
+        } else {
+            return "로그인 실패";
+        }
     }
 }

@@ -11,23 +11,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsersSaveRequestDto {
     private String studentNumber;
+    private String password;
     private String name;
     private String phoneNumber;
-    private Colleges college;
+    private Long collegeId;
     private String department;
 
     @Builder
-    public UsersSaveRequestDto(String studentNumber, String name, String phoneNumber, Colleges college, String department) {
+    public UsersSaveRequestDto(String studentNumber, String password, String name, String phoneNumber, Long collegeId, String department) {
         this.studentNumber = studentNumber;
+        this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.college = college;
+        this.collegeId = collegeId;
         this.department = department;
     }
 
-    public Users toEntity() {
+    public Users toEntity(Colleges college, String encodedPassword) {
         return Users.builder()
                 .studentNumber(studentNumber)
+                .password(encodedPassword)
                 .name(name)
                 .phoneNumber(phoneNumber)
                 .college(college)

@@ -1,5 +1,7 @@
 package com.duriyou.lean.service.users;
 
+import com.duriyou.lean.domain.colleges.Colleges;
+import com.duriyou.lean.domain.colleges.CollegesRepository;
 import com.duriyou.lean.domain.users.Users;
 import com.duriyou.lean.domain.users.UsersRepository;
 import com.duriyou.lean.web.dto.Users.AllUsersResponseDto;
@@ -8,6 +10,8 @@ import com.duriyou.lean.web.dto.Users.UsersSaveRequestDto;
 import com.duriyou.lean.web.dto.Users.UsersUpdateRequestDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class UsersService {
     private final UsersRepository usersRepository;
+    private final CollegesRepository collegesRepository;
 
     public List<AllUsersResponseDto> findAll() {
         List<Users> users = usersRepository.findAll();
@@ -27,14 +32,26 @@ public class UsersService {
 
     @Transactional
     public Long save(UsersSaveRequestDto requestDto) {
-        return usersRepository.save(requestDto.toEntity()).getId();
+        Colleges colleges = findCollegeById(requestDto.getCollegeId());
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+        return usersRepository.save(requestDto.toEntity(colleges, encodedPassword)).getId();
     }
 
     @Transactional
     public Long update(Long id, UsersUpdateRequestDto requestDto) {
         Users users = usersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. id=" + id));
-        users.update(requestDto.getStudentNumber(), requestDto.getName(), requestDto.getPhoneNumber(), requestDto.getCollege(), requestDto.getDepartment());
+        Colleges colleges = findCollegeById(requestDto.getCollegeId());
+        users.update(requestDto.getStudentNumber(), requestDto.getName(), requestDto.getPhoneNumber(), colleges, requestDto.getDepartment());
         return id;
+    }
+
+    @Transactional
+    public Boolean updateIsStudentCouncil(Long id) {
+        Users user = usersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. id=" + id));
+        Boolean currentStatus = user.getIsStudentCouncil();
+        user.updateIdStudentCouncil(!currentStatus);
+        return user.getIsStudentCouncil();
     }
 
     public UsersResponseDto findById (Long id) {
@@ -46,5 +63,20 @@ public class UsersService {
     public void delete (Long id) {
         Users users = usersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. id=" + id));
         usersRepository.delete(users);
+    }
+
+    @Transactional
+    public boolean signin (String studentNumber, String password) {
+        Users user = usersRepository.findByStudentNumber(studentNumber).orElseThrow();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.matches(password, user.getPassword());
+    }
+
+    private Colleges findCollegeById(Long collegeId) {
+        if (collegeId == null) {
+            return null;
+        }
+        return collegesRepository.findById(collegeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 단과대학이 존재하지 않습니다."));
     }
 }
