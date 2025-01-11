@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Persistent;
 
 import java.time.LocalDateTime;
 
@@ -28,6 +29,13 @@ public class RentalDates {
     // expiration time 반납 만료일 - 빌리기 시작한 날짜에 하루 추가
     @Column(nullable = false, updatable = false)
     private LocalDateTime expirationTime;
+
+    @PrePersist
+    public void prePersist() {
+        if (startTime == null){
+            startTime = LocalDateTime.now();
+        }
+    }
 
     // Builder
     @Builder
