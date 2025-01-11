@@ -35,6 +35,7 @@ public class RentalDates {
         if (startTime == null){
             startTime = LocalDateTime.now();
         }
+        expirationTime = this.startTime.plusDays(1);
     }
 
     // Builder
