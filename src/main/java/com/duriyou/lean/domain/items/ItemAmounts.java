@@ -26,4 +26,8 @@ public class ItemAmounts {
         this.items = items;
         this.amount = amount;
     }
+
+    public void updateAmount(Integer amount){
+        this.amount = amount;
+    }
 }
