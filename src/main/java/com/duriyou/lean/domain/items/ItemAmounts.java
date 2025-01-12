@@ -15,7 +15,7 @@ public class ItemAmounts {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "item_id", nullable = false)
     private Items items;
 
     @Column(nullable = false)
@@ -29,5 +29,13 @@ public class ItemAmounts {
 
     public void updateAmount(Integer amount){
         this.amount = amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public void setItems(Items items) {
+        this.items = items;
     }
 }
