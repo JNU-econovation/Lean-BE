@@ -35,6 +35,12 @@ public class ItemsService {
     }
 
     @Transactional
+    public void deleteItem(Long id) {
+        Items items = itemsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 물품이 없습니다. id =" + id));
+        itemsRepository.delete(items);
+    }
+
+    @Transactional
     public Long saveItem(Long id, ItemsSaveRequestDto itemsSaveRequestDto) {
 
         // studentCouncil 엔티티 조회

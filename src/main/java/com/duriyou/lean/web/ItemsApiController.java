@@ -23,10 +23,15 @@ public class ItemsApiController {
         return itemsService.updateItemAmounts(item_id, ItemamountsUpdateRequestDto);
     }
 
+    @DeleteMapping("/api/v1/items/{item_id}")
+    public Long deleteItem(@PathVariable Long item_id) {
+        itemsService.deleteItem(item_id);
+        return item_id;
+    }
+
     @PostMapping("/api/v1/items/{student_council_id}")
     public Long saveItem(@PathVariable Long student_council_id, @RequestBody ItemsSaveRequestDto itemsSaveRequestDto) {
         return itemsService.saveItem(student_council_id, itemsSaveRequestDto);
     }
-
 
 }
