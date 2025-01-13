@@ -6,13 +6,13 @@ import com.duriyou.lean.domain.items.Items;
 import com.duriyou.lean.domain.items.ItemsRepository;
 import com.duriyou.lean.domain.student.council.StudentCouncil;
 import com.duriyou.lean.domain.student.council.StudentCouncilRepository;
-import com.duriyou.lean.web.dto.items.ItemAmountsResponseDto;
-import com.duriyou.lean.web.dto.items.ItemAmountsSaveRequestDto;
-import com.duriyou.lean.web.dto.items.ItemAmountsUpdateRequestDto;
-import com.duriyou.lean.web.dto.items.ItemsSaveRequestDto;
+import com.duriyou.lean.web.dto.items.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -38,6 +38,14 @@ public class ItemsService {
     public void deleteItem(Long id) {
         Items items = itemsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 물품이 없습니다. id =" + id));
         itemsRepository.delete(items);
+    }
+    
+    // 여기 잘 이해 안됨
+    @Transactional
+    public ItemsResponseDto findItemsById (Long id) {
+        StudentCouncil studentCouncil = studentCouncilRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 학생회가 존재하지 않습니다. id=" + id));
+        List<ItemsNameResponseDto> itemsNameResponseDtos = studentCouncil.getItems().stream().map(ItemsNameResponseDto::new).toList();
+        return new ItemsResponseDto(studentCouncil, itemsNameResponseDtos);
     }
 
     @Transactional
