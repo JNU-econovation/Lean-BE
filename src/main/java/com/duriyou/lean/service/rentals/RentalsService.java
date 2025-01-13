@@ -1,6 +1,9 @@
 package com.duriyou.lean.service.rentals;
 
+import com.duriyou.lean.domain.student.council.StudentCouncilRepository;
 import com.duriyou.lean.domain.users.UsersRepository;
+import com.duriyou.lean.web.dto.rentals.StudentCouncilAllRentalsDto;
+import com.duriyou.lean.web.dto.rentals.StudentCouncilAllRentalsResponseDto;
 import com.duriyou.lean.web.dto.rentals.UserAllRentalsDto;
 import com.duriyou.lean.web.dto.rentals.UserAllRentalsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 public class RentalsService {
 
     private final UsersRepository usersRepository;
+    private final StudentCouncilRepository studentCouncilRepository;
 
     public List<UserAllRentalsResponseDto> findUserAllRentalsById(Long user_id){
         // JPQL로 데이터 조회
@@ -34,4 +38,17 @@ public class RentalsService {
 
     }
 
+    public List<StudentCouncilAllRentalsResponseDto> findStudentCouncilRentalsById(Long student_council_id){
+
+        List<StudentCouncilAllRentalsDto> studentCouncilAllRentalsDtos = studentCouncilRepository.findStudentCouncilAllRentalsById(student_council_id);
+
+        return studentCouncilAllRentalsDtos.stream()
+                .map(StudentCouncilAllRentalsDto -> new StudentCouncilAllRentalsResponseDto(
+                        StudentCouncilAllRentalsDto.getUserName(),
+                        StudentCouncilAllRentalsDto.getItemName(),
+                        StudentCouncilAllRentalsDto.getRentalStatus(),
+                        StudentCouncilAllRentalsDto.getRentalId()
+                ))
+                .collect(Collectors.toList());
+    }
 }
