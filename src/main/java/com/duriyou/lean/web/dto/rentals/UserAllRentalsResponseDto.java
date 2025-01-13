@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class UserAllRentalsResponseDto {
-
+    // 필드명 명명규칙 Refactoring 하기
     private String student_council_name;
     private Long rental_id;
     private String rental_status;
