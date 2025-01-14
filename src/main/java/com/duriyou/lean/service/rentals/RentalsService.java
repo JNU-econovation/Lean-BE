@@ -67,7 +67,7 @@ public class RentalsService {
                 .expirationTime(LocalDateTime.now().plusMinutes(30))
                 .build();
 
-        ReservationDates savedReservationDates = reservationDatesRepository.save(reservationDates);
+        reservationDatesRepository.save(reservationDates);
 
         return savedRentals.getId();
     }
