@@ -1,8 +1,6 @@
 package com.duriyou.lean.domain.rentals;
 
 import com.duriyou.lean.domain.dates.RentalDates;
-import com.duriyou.lean.domain.dates.ReservationDates;
-import com.duriyou.lean.domain.dates.ReturnDates;
 import com.duriyou.lean.domain.items.Items;
 import com.duriyou.lean.domain.users.Users;
 import jakarta.persistence.*;
@@ -30,23 +28,14 @@ public class Rentals {
     @Column(nullable = false)
     private String status;
 
-    @OneToOne
+    @OneToOne(mappedBy = "rentals",cascade = CascadeType.ALL)
     private RentalDates rentalDates;
 
-    @OneToOne
-    private ReservationDates reservationDates;
-
-    @OneToOne
-    private ReturnDates returnDates;
-
     @Builder
-    public Rentals(Users users, Items items, String status, RentalDates rentalDates,
-                   ReservationDates reservationDates, ReturnDates returnDates){
+    public Rentals(Users users, Items items, String status, RentalDates rentalDates){
         this.users = users;
         this.items = items;
         this.status = status;
         this.rentalDates = rentalDates;
-        this.reservationDates = reservationDates;
-        this.returnDates = returnDates;
     }
 }
