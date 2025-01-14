@@ -1,11 +1,9 @@
 package com.duriyou.lean.service.rentals;
 
+import com.duriyou.lean.domain.rentals.RentalsRepository;
 import com.duriyou.lean.domain.student.council.StudentCouncilRepository;
 import com.duriyou.lean.domain.users.UsersRepository;
-import com.duriyou.lean.web.dto.rentals.StudentCouncilAllRentalsDto;
-import com.duriyou.lean.web.dto.rentals.StudentCouncilAllRentalsResponseDto;
-import com.duriyou.lean.web.dto.rentals.UserAllRentalsDto;
-import com.duriyou.lean.web.dto.rentals.UserAllRentalsResponseDto;
+import com.duriyou.lean.web.dto.rentals.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,7 @@ public class RentalsService {
 
     private final UsersRepository usersRepository;
     private final StudentCouncilRepository studentCouncilRepository;
+    private final RentalsRepository rentalsRepository;
 
     public List<UserAllRentalsResponseDto> findUserAllRentalsById(Long user_id){
         // JPQL로 데이터 조회
@@ -37,6 +36,24 @@ public class RentalsService {
 
 
     }
+
+    public RentalDetailsResponseDto findRentalDetailsById(Long rental_id) {
+
+        RentalDetailsDto rentalDetailsDto = rentalsRepository.findRentalDetailsById(rental_id);
+
+        return new RentalDetailsResponseDto(
+                rentalDetailsDto.getStudentCouncilName(),
+                rentalDetailsDto.getStudentCouncilAddress(),
+                rentalDetailsDto.getItemName(),
+                rentalDetailsDto.getRentalStartDate(),
+                rentalDetailsDto.getRentalExpireDate(),
+                rentalDetailsDto.getUserName(),
+                rentalDetailsDto.getUserCollegeName(),
+                rentalDetailsDto.getUserPhoneNumber()
+        );
+
+    }
+
 
     public List<StudentCouncilAllRentalsResponseDto> findStudentCouncilRentalsById(Long student_council_id){
 

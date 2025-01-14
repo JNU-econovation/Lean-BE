@@ -1,6 +1,7 @@
 package com.duriyou.lean.web;
 
 import com.duriyou.lean.service.rentals.RentalsService;
+import com.duriyou.lean.web.dto.rentals.RentalDetailsResponseDto;
 import com.duriyou.lean.web.dto.rentals.StudentCouncilAllRentalsResponseDto;
 import com.duriyou.lean.web.dto.rentals.UserAllRentalsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +19,21 @@ public class RentalsApiController {
     private final RentalsService rentalsService;
 
     // R - 01
-    @GetMapping("api/v1/rentals/{user_id}")
+    @GetMapping("/api/v1/rentals/{user_id}")
     public ResponseEntity<List<UserAllRentalsResponseDto>> findUserAllRentalsById(@PathVariable Long user_id) {
         List<UserAllRentalsResponseDto> response = rentalsService.findUserAllRentalsById(user_id);
         return ResponseEntity.ok(response);
     }
 
+    // R - 03
+    @GetMapping("/api/v1/rentals/details/{rental_id}")
+    public ResponseEntity<RentalDetailsResponseDto> findRentalDetailsById(@PathVariable Long rental_id){
+        RentalDetailsResponseDto responseDto = rentalsService.findRentalDetailsById(rental_id);
+        return ResponseEntity.ok(responseDto);
+    }
+
     // R - 05
-    @GetMapping("api/v1/rentals/student_council/{student_council_id}")
+    @GetMapping("/api/v1/rentals/student_council/{student_council_id}")
     public ResponseEntity<List<StudentCouncilAllRentalsResponseDto>> findStudentCouncilRentalsById(@PathVariable Long student_council_id) {
         List<StudentCouncilAllRentalsResponseDto> response = rentalsService.findStudentCouncilRentalsById(student_council_id);
         return ResponseEntity.ok(response);
