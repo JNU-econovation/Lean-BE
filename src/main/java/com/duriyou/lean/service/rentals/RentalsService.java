@@ -1,9 +1,14 @@
 package com.duriyou.lean.service.rentals;
 
+import com.duriyou.lean.domain.items.Items;
+import com.duriyou.lean.domain.items.ItemsRepository;
+import com.duriyou.lean.domain.rentals.Rentals;
 import com.duriyou.lean.domain.rentals.RentalsRepository;
 import com.duriyou.lean.domain.student.council.StudentCouncilRepository;
+import com.duriyou.lean.domain.users.Users;
 import com.duriyou.lean.domain.users.UsersRepository;
 import com.duriyou.lean.web.dto.rentals.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,7 @@ public class RentalsService {
     private final UsersRepository usersRepository;
     private final StudentCouncilRepository studentCouncilRepository;
     private final RentalsRepository rentalsRepository;
+    private final ItemsRepository itemsRepository;
 
     public List<UserAllRentalsResponseDto> findUserAllRentalsById(Long user_id){
         // JPQL로 데이터 조회
@@ -35,6 +41,21 @@ public class RentalsService {
                 .collect(Collectors.toList());
 
 
+    }
+
+    @Transactional
+    public Long saveReservation(Long user_id, Long item_id) {
+        Users user = usersRepository.findById(user_id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. user_id " + user_id));
+        Items item = itemsRepository.findById(item_id).orElseThrow(() -> new IllegalArgumentException("해당 물품이 존재하지 않습니다. item_id " + item_id));
+
+        Rentals rentals = Rentals.builder()
+                .users(user)
+                .items(item)
+                .status("대기중")
+                .build();
+
+        Rentals savedRentals = rentalsRepository.save(rentals);
+        return savedRentals.getId();
     }
 
     public RentalDetailsResponseDto findRentalDetailsById(Long rental_id) {

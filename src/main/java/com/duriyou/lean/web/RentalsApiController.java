@@ -6,9 +6,7 @@ import com.duriyou.lean.web.dto.rentals.StudentCouncilAllRentalsResponseDto;
 import com.duriyou.lean.web.dto.rentals.UserAllRentalsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +21,12 @@ public class RentalsApiController {
     public ResponseEntity<List<UserAllRentalsResponseDto>> findUserAllRentalsById(@PathVariable Long user_id) {
         List<UserAllRentalsResponseDto> response = rentalsService.findUserAllRentalsById(user_id);
         return ResponseEntity.ok(response);
+    }
+
+    // R - 02
+    @PostMapping("/api/v1/rentals/{user_id}/reservation/{item_id}")
+    public Long saveReservation(@PathVariable Long user_id, @PathVariable Long item_id){
+        return rentalsService.saveReservation(user_id, item_id);
     }
 
     // R - 03
