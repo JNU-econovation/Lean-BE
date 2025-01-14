@@ -1,5 +1,7 @@
 package com.duriyou.lean.service.rentals;
 
+import com.duriyou.lean.domain.dates.ReservationDates;
+import com.duriyou.lean.domain.dates.ReservationDatesRepository;
 import com.duriyou.lean.domain.items.Items;
 import com.duriyou.lean.domain.items.ItemsRepository;
 import com.duriyou.lean.domain.rentals.Rentals;
@@ -12,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,7 @@ public class RentalsService {
     private final StudentCouncilRepository studentCouncilRepository;
     private final RentalsRepository rentalsRepository;
     private final ItemsRepository itemsRepository;
+    private final ReservationDatesRepository reservationDatesRepository;
 
     public List<UserAllRentalsResponseDto> findUserAllRentalsById(Long user_id){
         // JPQL로 데이터 조회
@@ -39,8 +43,6 @@ public class RentalsService {
                         userAllRentalsDto.getRental_date_expiration()
                 ))
                 .collect(Collectors.toList());
-
-
     }
 
     @Transactional
@@ -55,6 +57,18 @@ public class RentalsService {
                 .build();
 
         Rentals savedRentals = rentalsRepository.save(rentals);
+
+        // 예약 후 예약 시간 생성되는 비즈니스 로직
+        Rentals confirmRentals = rentalsRepository.findById(savedRentals.getId()).orElseThrow(()-> new IllegalArgumentException("해당 대여 내역이 존재하지 않습니다."));
+
+        ReservationDates reservationDates = ReservationDates.builder()
+                .rentals(confirmRentals)
+                .startTime(LocalDateTime.now())
+                .expirationTime(LocalDateTime.now().plusMinutes(30))
+                .build();
+
+        ReservationDates savedReservationDates = reservationDatesRepository.save(reservationDates);
+
         return savedRentals.getId();
     }
 
@@ -72,7 +86,6 @@ public class RentalsService {
                 rentalDetailsDto.getUserCollegeName(),
                 rentalDetailsDto.getUserPhoneNumber()
         );
-
     }
 
     public List<StudentCouncilAllRentalsResponseDto> findStudentCouncilRentalsById(Long student_council_id){
