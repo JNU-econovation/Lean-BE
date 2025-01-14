@@ -54,7 +54,6 @@ public class RentalsService {
 
     }
 
-
     public List<StudentCouncilAllRentalsResponseDto> findStudentCouncilRentalsById(Long student_council_id){
 
         List<StudentCouncilAllRentalsDto> studentCouncilAllRentalsDtos = studentCouncilRepository.findStudentCouncilAllRentalsById(student_council_id);
