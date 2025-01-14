@@ -66,10 +66,14 @@ public class UsersService {
     }
 
     @Transactional
-    public boolean signin (String studentNumber, String password) {
+    public Boolean signin (String studentNumber, String password) {
         Users user = usersRepository.findByStudentNumber(studentNumber).orElseThrow();
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(password, user.getPassword());
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            return user.getIsStudentCouncil();
+        } else {
+            throw new RuntimeException("Invalid credentials");
+        }
     }
 
     private Colleges findCollegeById(Long collegeId) {

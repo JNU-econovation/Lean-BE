@@ -44,12 +44,7 @@ public class UserApiController {
     }
 
     @PostMapping("/api/v1/signin")
-    public String signin(@RequestBody SigninRequestDto requestDto) {
-        boolean loginSuccessful = usersService.signin(requestDto.getStudentNumber(), requestDto.getPassword());
-        if (loginSuccessful) {
-            return "로그인";
-        } else {
-            return "로그인 실패";
-        }
+    public Boolean signin(@RequestBody SigninRequestDto requestDto) {
+        return usersService.signin(requestDto.getStudentNumber(), requestDto.getPassword());
     }
 }
