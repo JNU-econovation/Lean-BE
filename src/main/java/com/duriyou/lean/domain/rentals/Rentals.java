@@ -1,5 +1,6 @@
 package com.duriyou.lean.domain.rentals;
 
+import com.duriyou.lean.domain.dates.RentalDates;
 import com.duriyou.lean.domain.items.Items;
 import com.duriyou.lean.domain.users.Users;
 import jakarta.persistence.*;
@@ -27,10 +28,14 @@ public class Rentals {
     @Column(nullable = false)
     private String status;
 
+    @OneToOne
+    private RentalDates rentalDates;
+
     @Builder
-    public Rentals(Users users, Items items, String status){
+    public Rentals(Users users, Items items, String status, RentalDates rentalDates){
         this.users = users;
         this.items = items;
         this.status = status;
+        this.rentalDates = rentalDates;
     }
 }
