@@ -38,4 +38,8 @@ public class Rentals {
         this.status = status;
         this.rentalDates = rentalDates;
     }
+
+    public void updateStatus(String status){
+        this.status = status;
+    }
 }
