@@ -26,4 +26,6 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
     //SpringSecurity
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    //Spring DevTools
+    implementation 'org.springframework.boot:spring-boot-devtools'
 }

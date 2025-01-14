@@ -25,13 +25,6 @@ public class ReturnDates {
     @Column(nullable = false, updatable = false)
     private LocalDateTime date;
 
-    @PrePersist
-    public void prePersist(){
-        if (date == null){
-            date = LocalDateTime.now();
-        }
-    }
-
     @Builder
     public ReturnDates(Rentals rentals, LocalDateTime date){
         this.rentals = rentals;

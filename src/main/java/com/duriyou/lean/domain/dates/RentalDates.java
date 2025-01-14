@@ -30,14 +30,6 @@ public class RentalDates {
     @Column(nullable = false, updatable = false)
     private LocalDateTime expirationTime;
 
-    @PrePersist
-    public void prePersist() {
-        if (startTime == null){
-            startTime = LocalDateTime.now();
-        }
-        expirationTime = this.startTime.plusDays(1);
-    }
-
     // Builder
     @Builder
     public RentalDates(Rentals rentals, LocalDateTime startTime, LocalDateTime expirationTime){

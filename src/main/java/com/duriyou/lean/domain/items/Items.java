@@ -1,10 +1,13 @@
 package com.duriyou.lean.domain.items;
 
+import com.duriyou.lean.domain.rentals.Rentals;
 import com.duriyou.lean.domain.student.council.StudentCouncil;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -25,11 +28,15 @@ public class Items {
     @OneToOne(mappedBy = "items", cascade = CascadeType.ALL)
     private ItemAmounts itemAmounts;
 
+    @OneToMany(mappedBy = "items", cascade = CascadeType.ALL)
+    private List<Rentals> rentals;
+
     @Builder
-    public Items(StudentCouncil studentCouncil, String name, ItemAmounts itemAmounts){
+    public Items(StudentCouncil studentCouncil, String name, ItemAmounts itemAmounts, List<Rentals> rentals){
         this.studentCouncil = studentCouncil;
         this.name = name;
         this.itemAmounts = itemAmounts;
+        this.rentals = rentals;
     }
 
     public void setItemName(String itemName) {
