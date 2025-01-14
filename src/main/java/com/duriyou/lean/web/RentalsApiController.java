@@ -36,6 +36,12 @@ public class RentalsApiController {
         return ResponseEntity.ok(responseDto);
     }
 
+    // R - 04
+    @PutMapping("/api/v1/rentals/details/{rental_id}")
+    public String updateRentalStatus(@PathVariable Long rental_id){
+        return rentalsService.updateRentalStatus(rental_id);
+    }
+
     // R - 05
     @GetMapping("/api/v1/rentals/student_council/{student_council_id}")
     public ResponseEntity<List<StudentCouncilAllRentalsResponseDto>> findStudentCouncilRentalsById(@PathVariable Long student_council_id) {

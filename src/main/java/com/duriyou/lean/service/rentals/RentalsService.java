@@ -1,7 +1,6 @@
 package com.duriyou.lean.service.rentals;
 
-import com.duriyou.lean.domain.dates.ReservationDates;
-import com.duriyou.lean.domain.dates.ReservationDatesRepository;
+import com.duriyou.lean.domain.dates.*;
 import com.duriyou.lean.domain.items.Items;
 import com.duriyou.lean.domain.items.ItemsRepository;
 import com.duriyou.lean.domain.rentals.Rentals;
@@ -27,6 +26,8 @@ public class RentalsService {
     private final RentalsRepository rentalsRepository;
     private final ItemsRepository itemsRepository;
     private final ReservationDatesRepository reservationDatesRepository;
+    private final RentalDatesRepository rentalDatesRepository;
+    private final ReturnDatesRepository returnDatesRepository;
 
     public List<UserAllRentalsResponseDto> findUserAllRentalsById(Long user_id){
         // JPQL로 데이터 조회
@@ -70,6 +71,46 @@ public class RentalsService {
         reservationDatesRepository.save(reservationDates);
 
         return savedRentals.getId();
+    }
+
+    @Transactional
+    public String updateRentalStatus(Long rentalId){
+
+        Rentals rentals = rentalsRepository.findById(rentalId).orElseThrow(()-> new IllegalArgumentException("해당 대여내역이 존재하지 않습니다."));
+
+        String status = rentals.getStatus();
+
+        if ("대기중".equals(status)) {
+            // 대기중 상태일 때 대여중으로 바꿔주고 대여시간, 반납시간 데이터 추가 로직
+            rentals.updateStatus("대여중");
+
+            RentalDates rentalDates = RentalDates.builder()
+                    .rentals(rentals)
+                    .startTime(LocalDateTime.now())
+                    .expirationTime(LocalDateTime.now().plusDays(1))
+                    .build();
+
+            rentalDatesRepository.save(rentalDates);
+
+        } else if ("대여중".equals(status)) {
+
+            rentals.updateStatus("처리중");
+
+        } else if ("처리중".equals(status)) {
+
+            rentals.updateStatus("반납");
+
+            ReturnDates returnDates = ReturnDates.builder()
+                    .rentals(rentals)
+                    .date(LocalDateTime.now())
+                    .build();
+
+            returnDatesRepository.save(returnDates);
+
+        }
+
+        return rentals.getStatus();
+
     }
 
     public RentalDetailsResponseDto findRentalDetailsById(Long rental_id) {
