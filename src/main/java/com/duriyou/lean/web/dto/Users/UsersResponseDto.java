@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Getter
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ public class UsersResponseDto {
     private String collegeName;
     private String department;
     private LocalDateTime createdAt;
+    private Long studentCouncilId;
 
     public UsersResponseDto(Users entity) {
         this.id = entity.getId();
@@ -25,5 +27,11 @@ public class UsersResponseDto {
         this.collegeName = entity.getCollege().getName();
         this.department = entity.getDepartment();
         this.createdAt = entity.getCreatedAt();
+        if (entity.getStudentCouncil() != null) {
+            this.studentCouncilId = entity.getStudentCouncil().getId();
+        } else {
+            this.studentCouncilId = null; // null로 처리
+            System.out.println("StudentCouncil is null for user: " + entity.getId());
+        }
     }
 }

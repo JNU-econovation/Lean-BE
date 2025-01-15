@@ -2,6 +2,7 @@ package com.duriyou.lean.domain.users;
 
 
 import com.duriyou.lean.domain.colleges.Colleges;
+import com.duriyou.lean.domain.student.council.StudentCouncil;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,6 +44,9 @@ public class Users {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @OneToOne(mappedBy = "user")
+    private StudentCouncil studentCouncil;
+
     @PrePersist
     public void prePersist() {
         if (createdAt == null) {
@@ -54,7 +58,8 @@ public class Users {
     }
 
     @Builder
-    public Users(String studentNumber, String password, String name, String phoneNumber, Colleges college, String department, Boolean isStudentCouncil, LocalDateTime createdAt) {
+    public Users(String studentNumber, String password, String name, String phoneNumber, Colleges college,
+                 String department, Boolean isStudentCouncil, LocalDateTime createdAt, StudentCouncil studentCouncil) {
         this.studentNumber = studentNumber;
         this.password = password;
         this.name = name;
@@ -63,6 +68,7 @@ public class Users {
         this.isStudentCouncil = isStudentCouncil;
         this.college = college;
         this.createdAt = createdAt;
+        this.studentCouncil = studentCouncil;
     }
 
     public void update(String studentNumber, String name, String phoneNumber, Colleges college, String department) {

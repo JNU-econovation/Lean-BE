@@ -17,8 +17,8 @@ public class StudentCouncil {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private Users user;
 
     @Column(nullable = false, unique = true)
