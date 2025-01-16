@@ -16,6 +16,7 @@ public class UsersResponseDto {
     private String phoneNumber;
     private String collegeName;
     private String department;
+    private Boolean isStudentCouncil;
     private LocalDateTime createdAt;
     private Long studentCouncilId;
 
@@ -26,6 +27,7 @@ public class UsersResponseDto {
         this.phoneNumber = entity.getPhoneNumber();
         this.collegeName = entity.getCollege().getName();
         this.department = entity.getDepartment();
+        this.isStudentCouncil= entity.getIsStudentCouncil();
         this.createdAt = entity.getCreatedAt();
         if (entity.getStudentCouncil() != null) {
             this.studentCouncilId = entity.getStudentCouncil().getId();

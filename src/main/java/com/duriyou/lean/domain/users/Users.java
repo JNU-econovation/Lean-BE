@@ -71,8 +71,7 @@ public class Users {
         this.studentCouncil = studentCouncil;
     }
 
-    public void update(String studentNumber, String name, String phoneNumber, Colleges college, String department) {
-        this.studentNumber = studentNumber;
+    public void update(String name, String phoneNumber, Colleges college, String department) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.college = college;
