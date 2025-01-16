@@ -42,7 +42,7 @@ public class UsersService {
     public Long update(Long id, UsersUpdateRequestDto requestDto) {
         Users users = usersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. id=" + id));
         Colleges colleges = findCollegeById(requestDto.getCollegeId());
-        users.update(requestDto.getStudentNumber(), requestDto.getName(), requestDto.getPhoneNumber(), colleges, requestDto.getDepartment());
+        users.update(requestDto.getName(), requestDto.getPhoneNumber(), colleges, requestDto.getDepartment());
         return id;
     }
 

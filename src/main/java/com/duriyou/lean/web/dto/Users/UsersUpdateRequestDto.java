@@ -7,15 +7,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UsersUpdateRequestDto {
-    private String studentNumber;
     private String name;
     private String phoneNumber;
     private Long collegeId;
     private String department;
 
     @Builder
-    UsersUpdateRequestDto(String studentNumber, String name, String phoneNumber, Long collegeId, String department) {
-        this.studentNumber = studentNumber;
+    UsersUpdateRequestDto(String name, String phoneNumber, Long collegeId, String department) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.collegeId = collegeId;
