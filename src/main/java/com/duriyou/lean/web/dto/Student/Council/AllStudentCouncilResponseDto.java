@@ -12,11 +12,13 @@ public class AllStudentCouncilResponseDto {
     private Long userId;
     private String name;
     private String address;
+    private String college;
 
     public AllStudentCouncilResponseDto(StudentCouncil entity) {
         this.id = entity.getId();
         this.userId = entity.getUser().getId();
         this.name = entity.getName();
         this.address = entity.getAddress();
+        this.college =entity.getUser().getCollege().getName();
     }
 }
