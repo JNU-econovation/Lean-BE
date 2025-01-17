@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -43,9 +42,15 @@ public class ItemsService {
     // 여기 잘 이해 안됨
     @Transactional
     public ItemsResponseDto findItemsById (Long id) {
+        Items itmes = itemsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 물품이 없습니다. id =" + id));
+        return new ItemsResponseDto(itmes);
+    }
+
+    @Transactional
+    public ItemsStudentCouncilResponseDto findItemsByStudentCouncilId (Long id) {
         StudentCouncil studentCouncil = studentCouncilRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 학생회가 존재하지 않습니다. id=" + id));
         List<ItemsNameResponseDto> itemsNameResponseDtos = studentCouncil.getItems().stream().map(ItemsNameResponseDto::new).toList();
-        return new ItemsResponseDto(studentCouncil, itemsNameResponseDtos);
+        return new ItemsStudentCouncilResponseDto(studentCouncil, itemsNameResponseDtos);
     }
 
     @Transactional
