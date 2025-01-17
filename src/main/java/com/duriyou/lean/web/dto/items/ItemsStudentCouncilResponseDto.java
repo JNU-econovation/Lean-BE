@@ -6,13 +6,13 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class ItemsResponseDto {
+public class ItemsStudentCouncilResponseDto {
 
     private String studentCouncilName;
     private String studentCouncilAddress;
     private List<ItemsNameResponseDto> items;
 
-    public ItemsResponseDto(StudentCouncil entity, List<ItemsNameResponseDto> items) {
+    public ItemsStudentCouncilResponseDto(StudentCouncil entity, List<ItemsNameResponseDto> items) {
         this.studentCouncilName = entity.getName();
         this.studentCouncilAddress = entity.getAddress();
         this.items = items;

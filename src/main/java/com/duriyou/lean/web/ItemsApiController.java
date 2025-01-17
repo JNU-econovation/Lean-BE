@@ -1,10 +1,7 @@
 package com.duriyou.lean.web;
 
 import com.duriyou.lean.service.items.ItemsService;
-import com.duriyou.lean.web.dto.items.ItemAmountsResponseDto;
-import com.duriyou.lean.web.dto.items.ItemAmountsUpdateRequestDto;
-import com.duriyou.lean.web.dto.items.ItemsResponseDto;
-import com.duriyou.lean.web.dto.items.ItemsSaveRequestDto;
+import com.duriyou.lean.web.dto.items.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,15 +26,20 @@ public class ItemsApiController {
         itemsService.deleteItem(item_id);
         return item_id;
     }
+    // I - 03
+    @GetMapping("/api/v1/items/{item_id}")
+    public ItemsResponseDto findItemsById(@PathVariable Long item_id) {
+        return itemsService.findItemsById(item_id);
+    }
     // I - 02
-    @PostMapping("/api/v1/items/{student_council_id}")
+    @PostMapping("/api/v1/items/student-council/{student_council_id}")
     public Long saveItem(@PathVariable Long student_council_id, @RequestBody ItemsSaveRequestDto itemsSaveRequestDto) {
         return itemsService.saveItem(student_council_id, itemsSaveRequestDto);
     }
     // I - 01
-    @GetMapping("/api/v1/items/{student_council_id}")
-    public ItemsResponseDto findItemsById(@PathVariable Long student_council_id) {
-        return itemsService.findItemsById(student_council_id);
+    @GetMapping("/api/v1/items/student-council/{student_council_id}")
+    public ItemsStudentCouncilResponseDto findItemsByStudentCouncilId(@PathVariable Long student_council_id) {
+        return itemsService.findItemsByStudentCouncilId(student_council_id);
     }
 
 }
