@@ -1,5 +1,6 @@
 package com.duriyou.lean.web.dto.Users;
 
+import com.duriyou.lean.domain.student.council.StudentCouncil;
 import com.duriyou.lean.domain.users.Users;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +30,7 @@ public class UsersResponseDto {
         this.department = entity.getDepartment();
         this.isStudentCouncil= entity.getIsStudentCouncil();
         this.createdAt = entity.getCreatedAt();
-        if (entity.getStudentCouncil() != null) {
-            this.studentCouncilId = entity.getStudentCouncil().getId();
-        } else {
-            this.studentCouncilId = null; // null로 처리
-            System.out.println("StudentCouncil is null for user: " + entity.getId());
-        }
+        this.studentCouncilId = (entity.getStudentCouncil() != null) ? entity.getStudentCouncil().getId() : null;
+
     }
 }
