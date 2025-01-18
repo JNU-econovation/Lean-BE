@@ -1,5 +1,6 @@
 package com.duriyou.lean.web.dto.Users;
 
+import com.duriyou.lean.domain.student.council.StudentCouncil;
 import com.duriyou.lean.domain.users.Users;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class UsersResponseDto {
     private String department;
     private Boolean isStudentCouncil;
     private LocalDateTime createdAt;
+    private Long studentCouncilId;
 
     public UsersResponseDto(Users entity) {
         this.id = entity.getId();
@@ -27,5 +29,6 @@ public class UsersResponseDto {
         this.department = entity.getDepartment();
         this.isStudentCouncil= entity.getIsStudentCouncil();
         this.createdAt = entity.getCreatedAt();
+        this.studentCouncilId = (entity.getStudentCouncil() != null) ? entity.getStudentCouncil().getId() : null;
     }
 }

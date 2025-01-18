@@ -2,6 +2,7 @@ package com.duriyou.lean.domain.users;
 
 
 import com.duriyou.lean.domain.colleges.Colleges;
+import com.duriyou.lean.domain.student.council.StudentCouncil;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,6 +43,9 @@ public class Users {
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @OneToOne(mappedBy = "user")
+    private StudentCouncil studentCouncil;
 
     @PrePersist
     public void prePersist() {
