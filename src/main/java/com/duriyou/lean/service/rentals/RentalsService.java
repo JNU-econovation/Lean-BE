@@ -123,6 +123,9 @@ public class RentalsService {
                 rentalDetailsDto.getItemName(),
                 rentalDetailsDto.getRentalStartDate(),
                 rentalDetailsDto.getRentalExpireDate(),
+                rentalDetailsDto.getReservationStartDate(),
+                rentalDetailsDto.getReservationExpirationDate(),
+                rentalDetailsDto.getReturnDate(),
                 rentalDetailsDto.getUserName(),
                 rentalDetailsDto.getUserCollegeName(),
                 rentalDetailsDto.getUserPhoneNumber()
