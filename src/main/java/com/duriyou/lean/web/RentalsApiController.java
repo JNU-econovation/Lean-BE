@@ -2,6 +2,7 @@ package com.duriyou.lean.web;
 
 import com.duriyou.lean.service.rentals.RentalsService;
 import com.duriyou.lean.web.dto.rentals.RentalDetailsResponseDto;
+import com.duriyou.lean.web.dto.rentals.ReservationRequestDto;
 import com.duriyou.lean.web.dto.rentals.StudentCouncilAllRentalsResponseDto;
 import com.duriyou.lean.web.dto.rentals.UserAllRentalsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class RentalsApiController {
 
     // R - 02
     @PostMapping("/api/v1/rentals/{user_id}/reservation/{item_id}")
-    public Long saveReservation(@PathVariable Long user_id, @PathVariable Long item_id){
-        return rentalsService.saveReservation(user_id, item_id);
+    public Long saveReservation(@PathVariable Long user_id, @PathVariable Long item_id, @RequestBody ReservationRequestDto reservationRequestDto){
+        return rentalsService.saveReservation(user_id, item_id, reservationRequestDto);
     }
 
     // R - 03

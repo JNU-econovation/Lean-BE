@@ -47,7 +47,7 @@ public class RentalsService {
     }
 
     @Transactional
-    public Long saveReservation(Long user_id, Long item_id) {
+    public Long saveReservation(Long user_id, Long item_id, ReservationRequestDto resevationRequestDto) {
         Users user = usersRepository.findById(user_id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. user_id " + user_id));
         Items item = itemsRepository.findById(item_id).orElseThrow(() -> new IllegalArgumentException("해당 물품이 존재하지 않습니다. item_id " + item_id));
 
@@ -64,8 +64,8 @@ public class RentalsService {
 
         ReservationDates reservationDates = ReservationDates.builder()
                 .rentals(confirmRentals)
-                .startTime(LocalDateTime.now())
-                .expirationTime(LocalDateTime.now().plusMinutes(30))
+                .startTime(resevationRequestDto.getStartTime())
+                .expirationTime(resevationRequestDto.getExpirationTime())
                 .build();
 
         reservationDatesRepository.save(reservationDates);
