@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Getter
 @RequiredArgsConstructor
@@ -30,5 +31,6 @@ public class UsersResponseDto {
         this.isStudentCouncil= entity.getIsStudentCouncil();
         this.createdAt = entity.getCreatedAt();
         this.studentCouncilId = (entity.getStudentCouncil() != null) ? entity.getStudentCouncil().getId() : null;
+
     }
 }

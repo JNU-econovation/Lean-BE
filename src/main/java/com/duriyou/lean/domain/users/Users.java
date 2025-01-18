@@ -58,7 +58,8 @@ public class Users {
     }
 
     @Builder
-    public Users(String studentNumber, String password, String name, String phoneNumber, Colleges college, String department, Boolean isStudentCouncil, LocalDateTime createdAt) {
+    public Users(String studentNumber, String password, String name, String phoneNumber, Colleges college,
+                 String department, Boolean isStudentCouncil, LocalDateTime createdAt, StudentCouncil studentCouncil) {
         this.studentNumber = studentNumber;
         this.password = password;
         this.name = name;
@@ -67,6 +68,7 @@ public class Users {
         this.isStudentCouncil = isStudentCouncil;
         this.college = college;
         this.createdAt = createdAt;
+        this.studentCouncil = studentCouncil;
     }
 
     public void update(String name, String phoneNumber, Colleges college, String department) {
