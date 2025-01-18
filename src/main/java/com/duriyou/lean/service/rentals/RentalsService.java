@@ -121,6 +121,7 @@ public class RentalsService {
                 rentalDetailsDto.getStudentCouncilName(),
                 rentalDetailsDto.getStudentCouncilAddress(),
                 rentalDetailsDto.getItemName(),
+                rentalDetailsDto.getRentalStatus(),
                 rentalDetailsDto.getRentalStartDate(),
                 rentalDetailsDto.getRentalExpireDate(),
                 rentalDetailsDto.getReservationStartDate(),

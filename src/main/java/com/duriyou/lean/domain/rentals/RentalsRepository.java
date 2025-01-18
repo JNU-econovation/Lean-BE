@@ -11,6 +11,7 @@ public interface RentalsRepository extends JpaRepository<Rentals, Long> {
             sc.name,
             sc.address,
             i.name,
+            r.status,
             rd.startTime,
             rd.expirationTime,
             rsd.startTime,

@@ -11,6 +11,7 @@ public class RentalDetailsDto {
     private String studentCouncilName;
     private String studentCouncilAddress;
     private String itemName;
+    private String rentalStatus;
     private LocalDateTime rentalStartDate;
     private LocalDateTime rentalExpireDate;
     private LocalDateTime reservationStartDate;
