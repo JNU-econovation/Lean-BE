@@ -13,6 +13,9 @@ public class RentalDetailsDto {
     private String itemName;
     private LocalDateTime rentalStartDate;
     private LocalDateTime rentalExpireDate;
+    private LocalDateTime reservationStartDate;
+    private LocalDateTime reservationExpirationDate;
+    private LocalDateTime returnDate;
     private String userName;
     private String userCollegeName;
     private String userPhoneNumber;
