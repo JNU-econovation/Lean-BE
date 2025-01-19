@@ -4,9 +4,15 @@ import com.duriyou.lean.domain.items.ItemAmounts;
 import com.duriyou.lean.domain.items.ItemAmountsRepository;
 import com.duriyou.lean.domain.items.Items;
 import com.duriyou.lean.domain.items.ItemsRepository;
+import com.duriyou.lean.domain.rentals.Rentals;
+import com.duriyou.lean.domain.rentals.RentalsRepository;
 import com.duriyou.lean.domain.student.council.StudentCouncil;
 import com.duriyou.lean.domain.student.council.StudentCouncilRepository;
+import com.duriyou.lean.service.rentals.RentalsService;
 import com.duriyou.lean.web.dto.items.*;
+import com.duriyou.lean.web.dto.rentals.RentalDetailsDto;
+import com.duriyou.lean.web.dto.rentals.StudentCouncilAllRentalsResponseDto;
+import com.duriyou.lean.web.dto.rentals.UserAllRentalsDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,10 +26,27 @@ public class ItemsService {
     private final ItemAmountsRepository itemAmountsRepository;
     private final StudentCouncilRepository studentCouncilRepository;
     private final ItemsRepository itemsRepository;
+    private final RentalsService rentalsService;
 
+    @Transactional
     public ItemAmountsResponseDto findItemAmountsById (Long id) {
         ItemAmounts entity = itemAmountsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 물품이 존재하지 않습니다. id =" + id));
-        return new ItemAmountsResponseDto(entity);
+
+        int itemAmount = entity.getAmount(); // 해당 물품의 총량
+        String itemName = entity.getItems().getName(); // 물품 이름
+        Long studentCouncilId = entity.getItems().getStudentCouncil().getId(); // 해당 물품을 관리하는 학생회 ID
+        // 학생회 ID로 관리중인 모든 대여내역 조회;
+        List<StudentCouncilAllRentalsResponseDto> responseDtos = rentalsService.findStudentCouncilRentalsById(studentCouncilId);
+
+        // itemName으로 필터링
+        List<StudentCouncilAllRentalsResponseDto> namefilteredDtos = responseDtos.stream().filter(dto -> dto.getItemName().equals(itemName)).toList();
+
+        // 대여 상태 계산
+        int rentAmount = (int) namefilteredDtos.stream().filter(dto -> dto.getRentalStatus().equals("대여중")).count();
+        int processAmount = (int) namefilteredDtos.stream().filter(dto ->dto.getRentalStatus().equals("대기중") || dto.getRentalStatus().equals("처리중")).count();
+        int stock = itemAmount - (rentAmount + processAmount);
+
+        return new ItemAmountsResponseDto(entity, processAmount, rentAmount, stock);
     }
 
     @Transactional
