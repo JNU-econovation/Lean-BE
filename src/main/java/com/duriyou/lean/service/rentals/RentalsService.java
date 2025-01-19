@@ -142,7 +142,8 @@ public class RentalsService {
                         StudentCouncilAllRentalsDto.getUserName(),
                         StudentCouncilAllRentalsDto.getItemName(),
                         StudentCouncilAllRentalsDto.getRentalStatus(),
-                        StudentCouncilAllRentalsDto.getRentalId()
+                        StudentCouncilAllRentalsDto.getRentalId(),
+                        StudentCouncilAllRentalsDto.getExpirationTime()
                 ))
                 .collect(Collectors.toList());
     }
