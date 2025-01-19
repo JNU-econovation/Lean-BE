@@ -21,7 +21,7 @@ public interface StudentCouncilRepository extends JpaRepository<StudentCouncil, 
        RIGHT JOIN Items i ON sc.id = i.studentCouncil.id
        RIGHT JOIN Rentals r ON i.id = r.items.id
        LEFT JOIN Users u ON u.id = r.users.id
-       RIGHT JOIN RentalDates rd ON r.id = rd.rentals.id
+       LEFT JOIN RentalDates rd ON r.id = rd.rentals.id
        WHERE sc.id = :student_council_id
        ORDER BY r.id ASC
        """)
