@@ -5,6 +5,8 @@ import com.duriyou.lean.domain.users.Users;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @RequiredArgsConstructor
 public class StudentCouncilResponseDto {
