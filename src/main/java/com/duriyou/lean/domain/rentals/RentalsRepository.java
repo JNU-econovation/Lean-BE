@@ -19,7 +19,8 @@ public interface RentalsRepository extends JpaRepository<Rentals, Long> {
             rtd.date,
             u.name,
             c.name,
-            u.phoneNumber
+            u.phoneNumber,
+            u.department
         )
         FROM Rentals r
         JOIN r.items i

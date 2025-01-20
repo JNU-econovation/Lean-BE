@@ -129,7 +129,8 @@ public class RentalsService {
                 rentalDetailsDto.getReturnDate(),
                 rentalDetailsDto.getUserName(),
                 rentalDetailsDto.getUserCollegeName(),
-                rentalDetailsDto.getUserPhoneNumber()
+                rentalDetailsDto.getUserPhoneNumber(),
+                rentalDetailsDto.getUserDepartment()
         );
     }
 
