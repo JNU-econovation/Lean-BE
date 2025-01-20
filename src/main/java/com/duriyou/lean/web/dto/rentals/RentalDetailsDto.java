@@ -20,4 +20,5 @@ public class RentalDetailsDto {
     private String userName;
     private String userCollegeName;
     private String userPhoneNumber;
+    private String userDepartment;
 }

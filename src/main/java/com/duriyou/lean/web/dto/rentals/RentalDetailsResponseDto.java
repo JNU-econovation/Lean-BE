@@ -18,10 +18,11 @@ public class RentalDetailsResponseDto {
     private String userName;
     private String userCollegeName;
     private String userPhoneNumber;
+    private String userDepartment;
 
     public RentalDetailsResponseDto(String studentCouncilName, String studentCouncilAddress, String itemName, String rentalStatus,LocalDateTime rentalStartDate,
                                     LocalDateTime rentalExpireDate, LocalDateTime reservationStartDate, LocalDateTime reservationExpirationDate,
-                                    LocalDateTime returnDate, String userName, String userCollegeName, String userPhoneNumber) {
+                                    LocalDateTime returnDate, String userName, String userCollegeName, String userPhoneNumber, String userDepartment) {
         this.studentCouncilName = studentCouncilName;
         this.studentCouncilAddress = studentCouncilAddress;
         this.itemName = itemName;
@@ -34,5 +35,6 @@ public class RentalDetailsResponseDto {
         this.userName = userName;
         this.userCollegeName = userCollegeName;
         this.userPhoneNumber = userPhoneNumber;
+        this.userDepartment = userDepartment;
     }
 }
