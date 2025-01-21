@@ -4,6 +4,7 @@ import com.duriyou.lean.domain.colleges.Colleges;
 import com.duriyou.lean.domain.colleges.CollegesRepository;
 import com.duriyou.lean.domain.users.Users;
 import com.duriyou.lean.domain.users.UsersRepository;
+import com.duriyou.lean.security.JwtTokenProvider;
 import com.duriyou.lean.web.dto.Users.AllUsersResponseDto;
 import com.duriyou.lean.web.dto.Users.UsersResponseDto;
 import com.duriyou.lean.web.dto.Users.UsersSaveRequestDto;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 public class UsersService {
     private final UsersRepository usersRepository;
     private final CollegesRepository collegesRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<AllUsersResponseDto> findAll() {
         List<Users> users = usersRepository.findAll();
@@ -66,15 +68,17 @@ public class UsersService {
     }
 
     @Transactional
-    public Boolean signin (String studentNumber, String password) {
-        Users user = usersRepository.findByStudentNumber(studentNumber).orElseThrow();
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            return user.getIsStudentCouncil();
-        } else {
+    public Users authenticate(String studentNumber, String password) {
+        Users user = usersRepository.findByStudentNumber(studentNumber)
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
+
+        return user; // 사용자 엔티티 반환
     }
+
 
     private Colleges findCollegeById(Long collegeId) {
         if (collegeId == null) {
