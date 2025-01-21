@@ -21,3 +21,7 @@ spring:
         format_sql: true
         default_batch_fetch_size: 1000 #최적화 옵션
         show_sql: true
+jwt:
+  secret: ${SECRET}
+  access-token-validity: 3600000  # Access Token 유효 시간 (1시간)
+  refresh-token-validity: 604800000 # Refresh Token 유효 시간 (7일)
