@@ -23,5 +23,5 @@ spring:
         show_sql: true
 jwt:
   secret: ${SECRET}
-  access-token-validity: 3600000  # Access Token 유효 시간 (1시간)
+  access-token-validity: 36000000  # Access Token 유효 시간 (10시간)
   refresh-token-validity: 604800000 # Refresh Token 유효 시간 (7일)
